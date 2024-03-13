@@ -1,6 +1,6 @@
 {
   "name": "@liqd-rn/i18n",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "",
   "author": "radixxko",
   "license": "MIT",
@@ -17,7 +17,7 @@
     "url": "git+https://github.com/liqd-rn/i18n.git"
   },
   "dependencies": {
-    "@liqd-rn/state": "^1.4.5"
+    "@liqd-rn/state": "^1.5.3"
   },
   "peerDependencies": {
     "react": "*",
@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "react": "18.2.0",
-    "react-native": "0.73.5",
+    "react-native": "0.73.6",
     "@tsconfig/react-native": "^3.0.2",
-    "@types/react": "^18.2.62",
-    "typescript": "^5.3.3"
+    "@types/react": "^18.2.65",
+    "typescript": "^5.4.2"
   }
 }
