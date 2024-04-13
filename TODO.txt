@@ -1,0 +1,3 @@
+save locale to storage to be used on next startup
+
+return saved translation if it matches locale and if fetched translation differs update I18n after

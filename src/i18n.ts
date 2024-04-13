@@ -1,5 +1,6 @@
 import { State } from '@liqd-rn/state';
 import { Platform, NativeModules } from 'react-native';
+import Format from './format';
 
 const systemLocale = () => Platform.OS === 'ios' ? NativeModules.SettingsManager.settings.AppleLocale || NativeModules.SettingsManager.settings.AppleLanguages[0] : NativeModules.I18nManager.localeIdentifier;
 const defaultLocale = () => systemLocale().replace(/[-_].*$/,'').toLowerCase();
@@ -52,6 +53,7 @@ export default class I18n
 {
     private static current = { locale: defaultLocale(), country: defaultCountry() };
     private static instances = new Map<string, I18n>();
+    public static format = new Format( defaultLocale(), defaultCountry() );
 
     public static get locale(){ return [ I18n.current.locale, I18n.current.country ].filter( Boolean ).join( '-' )}
 
@@ -61,6 +63,8 @@ export default class I18n
 
         I18n.current.locale = ( locale || defaultLocale()).toLowerCase();
         I18n.current.country = ( country || defaultCountry()).toUpperCase();
+        
+        I18n.format = new Format( I18n.current.locale, I18n.current.country );
 
         for( let instance of I18n.instances.values() )
         {
@@ -183,5 +187,10 @@ export default class I18n
         return value || keys[0];
 
         //return value.replace( /%(\d+)/g, ( match, index ) => args[ index ] || match );
+    }
+
+    public get format()
+    {
+        return I18n.format;
     }
 }

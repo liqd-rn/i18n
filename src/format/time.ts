@@ -3,7 +3,8 @@ import { IntlOptions } from '../types';
 type DurationOptions = IntlOptions &
 {
     precision?  : number
-    resolution? : 'd' | 'h' | 'm' | 's' | 'ms'
+    resolution? : 'd' | 'h' | 'm' | 's' | 'ms',
+    origin?     : Date
 }
 
 function formatDuration( duration: number, options: DurationOptions )
@@ -32,10 +33,10 @@ function formatDuration( duration: number, options: DurationOptions )
 
 export function duration( date: Date, options: DurationOptions )
 {
-    return formatDuration( Date.now() - date.getTime(), options );
+    return formatDuration(( options.origin?.getTime() ?? Date.now() ) - date.getTime(), options );
 }
 
 export function countdown( date: Date, options: DurationOptions )
 {
-    return formatDuration( date.getTime() - Date.now(), options );
+    return formatDuration( date.getTime() - ( options.origin?.getTime() ?? Date.now() ), options );
 }
