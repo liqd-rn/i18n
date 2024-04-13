@@ -1,15 +1,18 @@
 import { IntlOptions } from '../types';
 
-type CurrencyOptions = IntlOptions &
+export type CurrencyOptions = IntlOptions &
 {
     currency    : string
     precision?  : number
 }
 
-
 export function currency( value: number, options: CurrencyOptions )
 {
-    const { currency, precision = 0 } = options;
+    const { currency, precision } = options;
 
-    return new Intl.NumberFormat( options.locale, { style: 'currency', currency, minimumFractionDigits: precision }).format( value );
+    let formatted = new Intl.NumberFormat( options.locale, { style: 'currency', currency, minimumFractionDigits: precision ?? 2, maximumFractionDigits: precision ?? 2 }).format( value );
+
+    ( precision === undefined ) && ( formatted = formatted.replace( /([,.]00)([^0-9]*)$/, '$2' ));
+
+    return formatted;
 }

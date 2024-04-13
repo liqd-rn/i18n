@@ -1,6 +1,6 @@
 import { IntlOptions } from '../types';
 
-type DurationOptions = IntlOptions &
+export type DurationOptions = IntlOptions &
 {
     precision?  : number
     resolution? : 'd' | 'h' | 'm' | 's' | 'ms',
