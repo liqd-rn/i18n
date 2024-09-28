@@ -37,6 +37,9 @@ const resolveVariables = ( str, scopes, transformation ) =>
 			{
 				resolved.add( path );
 
+                if( modifiers === 'do' ){ return I18n.format.ordinal( value ); }
+                if( modifiers === 'd' ){ return I18n.format.number( value ); }
+
 				return transformation ? transformation( value, modifiers ) : value;
 			}
 		}
@@ -111,9 +114,9 @@ export default class I18n
         return instance;
     }
 
-    public static ready()
+    public static get ready()
     {
-        return Promise.all( Array.from( I18n.instances.values(), instance => instance.ready()));
+        return Promise.all( Array.from( I18n.instances.values(), instance => instance.ready ));
     }
 
     private dictionary: Dictionary = {};
@@ -132,9 +135,9 @@ export default class I18n
         return this.state.use()!;
     }
 
-    public async ready(): Promise<void>
+    public get ready(): Promise<void>
     {
-        await this.loading;
+        return this.loading!;
     }
 
     public async reload()
@@ -176,7 +179,8 @@ export default class I18n
 
         if( Array.isArray( value ))
         {
-            value = value[ 0 ];
+            //value = value[ 0 ];
+            value = value[ Math.floor( Math.random() * value.length )];
         }
 
         if( value && variables.length )
