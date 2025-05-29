@@ -2,7 +2,7 @@ import { State } from '@liqd-rn/state';
 import { Platform, NativeModules } from 'react-native';
 import Format from './format';
 
-const systemLocale = () => Platform.OS === 'ios' ? NativeModules.SettingsManager.settings.AppleLocale || NativeModules.SettingsManager.settings.AppleLanguages[0] : NativeModules.I18nManager.localeIdentifier;
+const systemLocale = () => Platform.OS === 'ios' ? ( NativeModules.SettingsManager.settings?.AppleLocale || NativeModules.SettingsManager.getConstants()?.settings?.AppleLocale || NativeModules.SettingsManager.settings?.AppleLanguages[0] || NativeModules.SettingsManager.getConstants()?.settings?.AppleLanguages[0] ) : NativeModules.I18nManager.localeIdentifier;
 const defaultLocale = () => systemLocale().replace(/[-_].*$/,'').toLowerCase();
 const defaultCountry = () => systemLocale().match(/^[a-zA-Z]+[-_](?<country>[a-zA-Z]+)$/,'')?.groups?.country?.toUpperCase?.() || '';
 
