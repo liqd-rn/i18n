@@ -1,6 +1,6 @@
 {
   "name": "@liqd-rn/i18n",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "",
   "author": "radixxko",
   "license": "MIT",
@@ -8,26 +8,27 @@
   "types": "dist/i18n.d.ts",
   "files": [ "dist/**/*" ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "version": "npm i && tsc && npm publish --access public"
+    "clean": "rm -rf dist package-lock.json node_modules && npm i",
+    "build": "npm run clean && tsc",
+    "version": "git pull && npm run build && npm publish && npm run commit && git push",
+    "commit": "node -e \"const version = require('./package.json').version.trim(); require('child_process').execSync('git add . && git commit -m \\\"Version ' + version + '\\\"');\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liqd-rn/i18n.git"
   },
   "dependencies": {
-    "@liqd-rn/state": "^1.5.9"
+    "@liqd-rn/state": "^1.6.0"
   },
   "peerDependencies": {
     "react": "*",
     "react-native": "*"
   },
   "devDependencies": {
-    "react": "19.0.0",
-    "react-native": "0.79.2",
-    "@tsconfig/react-native": "^3.0.5",
-    "@types/react": "^19.1.4",
+    "react": "19.1.0",
+    "react-native": "0.80.0",
+    "@tsconfig/react-native": "^3.0.6",
+    "@types/react": "^19.1.8",
     "typescript": "^5.8.3"
   }
 }
